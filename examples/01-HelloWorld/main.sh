@@ -21,6 +21,8 @@ depend {
 
 CALL_workspace ensure .
 
+sleep 3
+
 CALL_workspace expect_started .
 
 CALL_workspace stop .
