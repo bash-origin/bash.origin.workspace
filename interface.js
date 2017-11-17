@@ -2,6 +2,11 @@
 
 const PATH = require("path");
 
+
+console.log("[interface.js] __dirname", __dirname);
+console.log("[interface.js] PWD", process.cwd);
+
+
 exports.version = require(PATH.join(
     __dirname,
     "package.json"
