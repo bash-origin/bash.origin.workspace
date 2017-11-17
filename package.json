@@ -5,9 +5,9 @@
         "publish": "npm"
     },
     "bin": {
-        "bash.origin": "./node_modules/.bin/bash.origin",
-        "bash.origin.script": "./node_modules/.bin/bash.origin.script",
-        "bash.origin.test": "./node_modules/.bin/bash.origin.test",
+        "bash.origin": "./dependencies/bin/bash.origin",
+        "bash.origin.script": "./dependencies/bin/bash.origin.script",
+        "bash.origin.test": "./dependencies/bin/bash.origin.test",
         "bash.origin.workspace.inf.js": "./interface.js"
     },
     "main": "./runtime.js",
