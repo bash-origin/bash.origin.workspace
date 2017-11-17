@@ -8,7 +8,7 @@
         "bash.origin": "./node_modules/.bin/bash.origin",
         "bash.origin.script": "./node_modules/.bin/bash.origin.script",
         "bash.origin.test": "./node_modules/.bin/bash.origin.test",
-        "bash.origin.workspace.inf": "./interface.js"
+        "bash.origin.workspace.inf.js": "./interface.js"
     },
     "main": "./runtime.js",
     "scripts": {
