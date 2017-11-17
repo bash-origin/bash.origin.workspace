@@ -1,6 +1,9 @@
 {
     "name": "bash.origin.workspace",
     "version": "0.1.2",
+    "pm": {
+        "publish": "npm"
+    },
     "scripts": {
         "install": "bash ./install.sh",
         "test": "bash.origin.test examples"
