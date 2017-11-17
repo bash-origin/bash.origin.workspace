@@ -33,6 +33,7 @@ export BO_VERSION_RECENT_NODE="${NODE_MAJOR_VERSION}"
 export BO_VERSION_NVM_NODE="${NODE_MAJOR_VERSION}"
 
 # Make sure the dependencies are installed
+workspaceRootPath="$(pwd)"
 binSubPath="node_modules/.bin";
 pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
@@ -40,12 +41,26 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
     [ -e "${VERSIONED_DEPENDENCIES_PATH}" ] || mkdir "${VERSIONED_DEPENDENCIES_PATH}"
 
     pushd "${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
+
+        if BO_has_cli_arg "--force"; then
+            BO_cecho "[bash.origin.workspace] Forcing install of dependencies in: $(pwd)" MAGENTA BOLD
+            rm ".installed" || true
+            rm "package-lock.json" || true
+            rm -Rf "node_modules" || true
+        fi
+
         if [ ! -e ".installed" ]; then
             BO_cecho "[bash.origin.workspace] Installing dependencies in: $(pwd)" WHITE BOLD
 
-            cp "../package.json" "package.json"
+            rm -Rf "package.json" || true
+            if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
+                cp "${workspaceRootPath}/dependencies/package.json" "package.json"
+            else
+                cp "../package.json" "package.json"
+            fi
             npm install --production
 
+            rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
             ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
 
             touch ".installed"
@@ -53,12 +68,11 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
     popd > /dev/null
 popd > /dev/null
 
-workspaceRootPath="$(pwd)"
-BO_run_recent_node --eval '
-    const PATH = require("path");
-    const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
-    if (FS.existsSync(PATH.join(process.cwd(), "package.json"))) {
-        if (require(PATH.join(process.cwd(), "package.json")).name === "bash.origin.workspace") {
+if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
+    BO_run_recent_node --eval '
+        const PATH = require("path");
+        const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
+        if (FS.existsSync(PATH.join(process.cwd(), "package.json"))) {
             if (FS.existsSync("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")) {
                 FS.copySync(
                     "'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json",
@@ -66,8 +80,8 @@ BO_run_recent_node --eval '
                 );
             }
         }
-    }
-'
+    '
+fi
 
 
 # Link bin files
