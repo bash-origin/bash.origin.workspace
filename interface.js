@@ -2,7 +2,10 @@
 
 const PATH = require("path");
 
-exports.version = require("./package.json").version;
+exports.version = require(PATH.join(
+    __dirname,
+    "package.json"
+)).version;
 
 exports.node_modules = PATH.join(
     __dirname,
