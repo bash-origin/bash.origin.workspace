@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set +e
+
 . "node_modules/bash.origin/bash.origin"
 
 BO_cecho "[bash.origin.workspace] ----- START INSTALL ----- (pwd: $(pwd))" WHITE BOLD
@@ -24,15 +26,15 @@ if [ ! -e "${COMMON_PACKAGE_ROOT}" ]; then
     fi
 fi
 
+NODE_MAJOR_VERSION="$(node --version 2>&1 | perl -pe 's/^v(\d+).+$/$1/')"
+BO_cecho "[bash.origin.workspace] NODE_MAJOR_VERSION: ${NODE_MAJOR_VERSION}" WHITE BOLD
+
+export BO_VERSION_RECENT_NODE="${NODE_MAJOR_VERSION}"
+export BO_VERSION_NVM_NODE="${NODE_MAJOR_VERSION}"
 
 # Make sure the dependencies are installed
 binSubPath="node_modules/.bin";
 pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
-    NODE_MAJOR_VERSION="$(node --version 2>&1 | perl -pe 's/^v(\d+).+$/$1/')"
-    BO_cecho "[bash.origin.workspace] NODE_MAJOR_VERSION: ${NODE_MAJOR_VERSION}" WHITE BOLD
-
-    BO_VERSION_RECENT_NODE="${NODE_MAJOR_VERSION}"
-    BO_VERSION_NVM_NODE="${NODE_MAJOR_VERSION}"
 
     VERSIONED_DEPENDENCIES_PATH="dependencies/.node-v${NODE_MAJOR_VERSION}"
     [ -e "${VERSIONED_DEPENDENCIES_PATH}" ] || mkdir "${VERSIONED_DEPENDENCIES_PATH}"
@@ -51,9 +53,24 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
     popd > /dev/null
 popd > /dev/null
 
+workspaceRootPath="$(pwd)"
+BO_run_recent_node --eval '
+    const PATH = require("path");
+    const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
+    if (FS.existsSync(PATH.join(process.cwd(), "package.json"))) {
+        if (require(PATH.join(process.cwd(), "package.json")).name === "bash.origin.workspace") {
+            if (FS.existsSync("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")) {
+                FS.copySync(
+                    "'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json",
+                    "'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json"
+                );
+            }
+        }
+    }
+'
+
 
 # Link bin files
-workspaceRootPath="$(pwd)"
 pushd "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
 
     BO_cecho "[bash.origin.workspace] Linking commands from bin '$(pwd)/${binSubPath}':" WHITE BOLD

@@ -5,3 +5,4 @@ node_modules/
 *~.compiled.*
 .rt/
 .installed
+/npm-debug.log
