@@ -21,7 +21,10 @@ exports.node_modules = PATH.join(
 if (!FS.existsSync(exports.node_modules)) {
 
     process.stdout.write("TEST_MATCH_IGNORE>>>\n");
+    process.stderr.write("TEST_MATCH_IGNORE>>>\n");
     
+    process.stdout.write("[bash.origin.workspace] Install dependencies in '" + BASE_PATH + "':\n");
+
     var env = process.env;
     delete env.BO_LOADED;
     require("child_process").execSync("npm install --production", {
@@ -31,6 +34,7 @@ if (!FS.existsSync(exports.node_modules)) {
     });
 
     process.stdout.write("<<<TEST_MATCH_IGNORE\n");
+    process.stderr.write("<<<TEST_MATCH_IGNORE\n");
 }
 
 
