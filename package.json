@@ -4,6 +4,13 @@
     "pm": {
         "publish": "npm"
     },
+    "bin": {
+        "bash.origin": "./node_modules/.bin/bash.origin",
+        "bash.origin.script": "./node_modules/.bin/bash.origin.script",
+        "bash.origin.test": "./node_modules/.bin/bash.origin.test",
+        "bash.origin.workspace.inf": "./interface.js"
+    },
+    "main": "./runtime.js",
     "scripts": {
         "install": "bash ./install.sh",
         "test": "bash.origin.test examples"
