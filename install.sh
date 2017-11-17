@@ -26,6 +26,7 @@ fi
 
 
 # Make sure the dependencies are installed
+binSubPath="node_modules/.bin";
 pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
     NODE_MAJOR_VERSION="$(node --version 2>&1 | perl -pe 's/^v(\d+).+$/$1/')"
     BO_cecho "[bash.origin.workspace] NODE_MAJOR_VERSION: ${NODE_MAJOR_VERSION}" WHITE BOLD
@@ -39,6 +40,9 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
             cp "../package.json" "package.json"
             npm install --production
+
+            ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${VERSIONED_DEPENDENCIES_PATH}/${binSubPath}/bash.origin.workspace.inf.js"
+
             touch ".installed"
         fi
     popd > /dev/null
@@ -48,8 +52,6 @@ popd > /dev/null
 # Link bin files
 workspaceRootPath="$(pwd)"
 pushd "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
-
-    binSubPath="node_modules/.bin";
 
     BO_cecho "[bash.origin.workspace] Linking commands from bin '$(pwd)/${binSubPath}':" WHITE BOLD
     for subpath in ${binSubPath}/*; do
