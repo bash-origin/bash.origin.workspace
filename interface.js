@@ -20,7 +20,7 @@ exports.node_modules = PATH.join(
 
 if (!FS.existsSync(exports.node_modules)) {
 
-    console.log("TEST_MATCH_IGNORE>>>");
+    process.stdout.write("TEST_MATCH_IGNORE>>>\n");
     
     var env = process.env;
     delete env.BO_LOADED;
@@ -30,7 +30,7 @@ if (!FS.existsSync(exports.node_modules)) {
         env: env
     });
 
-    console.log("<<<TEST_MATCH_IGNORE");
+    process.stdout.write("<<<TEST_MATCH_IGNORE\n");
 }
 
 
