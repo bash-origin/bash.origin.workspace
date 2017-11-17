@@ -60,6 +60,9 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             fi
             npm install --production
 
+            if [ ! -e "${binSubPath}" ]; then
+                mkdir -p "${binSubPath}"
+            fi
             rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
             ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
 
