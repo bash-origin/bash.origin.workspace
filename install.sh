@@ -57,7 +57,7 @@ pushd "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
     for subpath in ${binSubPath}/*; do
         BO_cecho "[bash.origin.workspace]   ${subpath}" WHITE BOLD
 
-        [ -e "${workspaceRootPath}/${subpath}" ] ||
-            ln -s "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/${subpath}" "${workspaceRootPath}/${subpath}"
+        rm -f "${workspaceRootPath}/${subpath}" || true
+        ln -s "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/${subpath}" "${workspaceRootPath}/${subpath}"
     done
 popd > /dev/null
