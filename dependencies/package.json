@@ -3,6 +3,12 @@
         "bash.origin": "^0.1.74",
         "bash.origin.test": "^0.1.35",
         "fs-extra": "^4.0.2",
-        "lodash": "^4.17.4"
+        "lodash": "^4.17.4",
+        "express": "^4.14.0",
+        "morgan": "^1.7.0",
+        "body-parser": "^1.16.0",
+        "uuidgen": "^1.0.0",
+        "codeblock": "^0.3.6",
+        "mime-types": "^2.1.15"
     }
 }
