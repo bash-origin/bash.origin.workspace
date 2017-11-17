@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "bash.origin": "^0.1.73",
+        "bash.origin": "^0.1.74",
         "bash.origin.test": "^0.1.35",
         "fs-extra": "^4.0.2",
         "lodash": "^4.17.4"
