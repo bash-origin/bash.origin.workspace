@@ -18,6 +18,17 @@ exports.node_modules = PATH.join(
 );
 
 
+if (!FS.existsSync(exports.node_modules)) {
+    var env = process.env;
+    delete env.BO_LOADED;
+    require("child_process").execSync("npm install --production", {
+        cwd: BASE_PATH,
+        stdio: "inherit",
+        env: env
+    });
+}
+
+
 var code = [
     'LIB = {'
 ];

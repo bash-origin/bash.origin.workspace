@@ -3,7 +3,14 @@
 const LIB = require("../..").LIB;
 
 
-test('Test !!!', function () {
+test('Test', function () {
 
-    expect(true).toBe(true);
+    expect(LIB.LODASH.merge({
+        foo: "bar"
+    }, {
+        name: "value"
+    })).toEqual({
+        foo: "bar",
+        name: "value"
+    });
 });
