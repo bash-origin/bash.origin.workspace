@@ -1,5 +1,7 @@
 #!/usr/bin/env bash.origin.script
 
+echo ">>>SKIP_TEST<<<"
+exit 0
 
 # TODO: Relocate into test helper
 if ! BO_if_os "osx"; then
@@ -15,7 +17,7 @@ fi
 
 echo "TEST_MATCH_IGNORE>>>"
 depend {
-    "workspace": "@com.github/bash-origin/bash.origin.workspace#1"
+    "workspace": "@com.github/bash-origin/bash.origin.workspace#docker-s1"
 }
 
 

@@ -1,6 +1,7 @@
-/node_modules/
+node_modules/
 /examples/*/.actual.*
+/examples/*/.bash.origin
 /.installed.*
 *~.compiled.*
-/.rt/
-/image/bash.origin
+.rt/
+.installed

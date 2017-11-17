@@ -1,10 +1,11 @@
 {
-    "name": "bash.origin.workspace",
-    "version": "0.1.1",
-    "dependencies": {
-        "bash.origin.test": "^0.1.14"
-    },
-    "scripts": {
-        "test": "bash.origin.test examples"
-    }
+  "name": "bash.origin.workspace",
+  "version": "0.1.1",
+  "scripts": {
+    "install": "bash ./install.sh",
+    "test": "bash.origin.test examples"
+  },
+  "dependencies": {
+    "bash.origin": "^0.1.73"
+  }
 }

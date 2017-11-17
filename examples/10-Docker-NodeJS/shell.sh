@@ -2,7 +2,7 @@
 # Source https://github.com/bash-origin/bash.origin
 . "$HOME/.bash.origin"
 
-BO_format "${BO_VERBOSE}" "HEADER" "stack.sh $@"
+BO_format "${BO_VERBOSE}" "HEADER" "shell.sh $@"
 
 
 echo "[shell.sh] BO_VERBOSE: ${BO_VERBOSE}"

@@ -1,0 +1,16 @@
+>>>TEST_IGNORE_LINE:^Time:\s+\d<<<
+>>>TEST_IGNORE_LINE:Test \([\d]+ms\)<<<
+
+ RUNS  ...main.js
+[K[1A[K[1A PASS  01-NodeJS-Library/main.js
+
+ RUNS  ...main.js
+
+ RUNS  ...main.js
+[K[1A[K[1A
+
+ RUNS  ...main.js
+[K[1A[K[1ATest Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Ran all test suites matching "01-NodeJS-Library/main.js".
