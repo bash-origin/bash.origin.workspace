@@ -31,6 +31,9 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
     NODE_MAJOR_VERSION="$(node --version 2>&1 | perl -pe 's/^v(\d+).+$/$1/')"
     BO_cecho "[bash.origin.workspace] NODE_MAJOR_VERSION: ${NODE_MAJOR_VERSION}" WHITE BOLD
 
+    BO_VERSION_RECENT_NODE="${NODE_MAJOR_VERSION}"
+    BO_VERSION_NVM_NODE="${NODE_MAJOR_VERSION}"
+
     VERSIONED_DEPENDENCIES_PATH="dependencies/.node-v${NODE_MAJOR_VERSION}"
     [ -e "${VERSIONED_DEPENDENCIES_PATH}" ] || mkdir "${VERSIONED_DEPENDENCIES_PATH}"
 
