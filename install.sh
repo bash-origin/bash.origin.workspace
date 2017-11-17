@@ -41,7 +41,7 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             cp "../package.json" "package.json"
             npm install --production
 
-            ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${VERSIONED_DEPENDENCIES_PATH}/${binSubPath}/bash.origin.workspace.inf.js"
+            ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
 
             touch ".installed"
         fi
