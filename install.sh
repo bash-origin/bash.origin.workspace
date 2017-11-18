@@ -82,8 +82,6 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
             #echo "${COMMON_PACKAGE_ROOT}" > "${binSubPath}/.bash.origin.workspace.path"
 
-            echo "${COMMON_PACKAGE_ROOT}/interface-common.js" > "${binSubPath}/.bash.origin.workspace.inf.js.path"
-
             touch ".installed"
         fi
     popd > /dev/null
@@ -116,3 +114,8 @@ pushd "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
         ln -s "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/${subpath}" "${workspaceRootPath}/${subpath}"
     done
 popd > /dev/null
+
+
+# Link interface path
+echo "${COMMON_PACKAGE_ROOT}/interface-common.js" > "${binSubPath}/.bash.origin.workspace.inf.js.path"
+
