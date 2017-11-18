@@ -77,8 +77,12 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             if [ ! -e "${binSubPath}" ]; then
                 mkdir -p "${binSubPath}"
             fi
-            rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
-            ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
+            #rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
+            #ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
+
+            #echo "${COMMON_PACKAGE_ROOT}" > "${binSubPath}/.bash.origin.workspace.path"
+
+            echo "${COMMON_PACKAGE_ROOT}/interface-common.js" > "${binSubPath}/.bash.origin.workspace.inf.js.path"
 
             touch ".installed"
         fi

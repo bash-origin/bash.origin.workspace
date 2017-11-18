@@ -7,10 +7,9 @@
     "bin": {
         "bash.origin": "./dependencies/bin/bash.origin",
         "bash.origin.script": "./dependencies/bin/bash.origin.script",
-        "bash.origin.test": "./dependencies/bin/bash.origin.test",
-        "bash.origin.workspace.inf.js": "./interface.js"
+        "bash.origin.test": "./dependencies/bin/bash.origin.test"
     },
-    "main": "./runtime.js",
+    "main": "./interface-package.js",
     "scripts": {
         "install": "bash ./install.sh",
         "test": "bash.origin.test examples"
