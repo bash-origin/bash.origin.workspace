@@ -6,3 +6,4 @@ node_modules/
 .rt/
 .installed
 /npm-debug.log
+/dependencies/*/package.json

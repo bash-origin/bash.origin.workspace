@@ -9,20 +9,27 @@ BO_cecho "[bash.origin.workspace] ----- START INSTALL ----- (pwd: $(pwd))" WHITE
 COMMON_PACKAGE_URI_ORG_REPO="bash-origin/bash.origin.workspace"
 COMMON_PACKAGE_URI="github.com/${COMMON_PACKAGE_URI_ORG_REPO}"
 COMMON_PACKAGE_VERSION=$(BO_getLatestTagForURI "${COMMON_PACKAGE_URI}")
-BO_systemCachePath "COMMON_PACKAGE_ROOT" "${COMMON_PACKAGE_URI}" "${COMMON_PACKAGE_VERSION}"
 
-BO_cecho "[bash.origin.workspace] COMMON_PACKAGE_ROOT: ${COMMON_PACKAGE_ROOT}" WHITE BOLD
+if [ -z "$COMMON_PACKAGE_ROOT" ]; then
 
+    BO_systemCachePath "COMMON_PACKAGE_ROOT" "${COMMON_PACKAGE_URI}" "${COMMON_PACKAGE_VERSION}"
 
-# Make sure the latest source code is available.
-if [ ! -e "${COMMON_PACKAGE_ROOT}" ]; then
-    COMMON_PACKAGE_VERSION_URL="https://github.com/${COMMON_PACKAGE_URI_ORG_REPO}/archive/$COMMON_PACKAGE_VERSION.zip"
-    BO_cecho "[bash.origin.workspace] Downloading from '${COMMON_PACKAGE_VERSION_URL}'" WHITE BOLD
+    BO_cecho "[bash.origin.workspace] COMMON_PACKAGE_ROOT: ${COMMON_PACKAGE_ROOT}" WHITE BOLD
 
-    BO_ensureInSystemCache "COMMON_PACKAGE_ROOT_EXTRACTED" "${COMMON_PACKAGE_URI}" "${COMMON_PACKAGE_VERSION}" "${COMMON_PACKAGE_VERSION_URL}"
+    # Make sure the latest source code is available.
+    if [ ! -e "${COMMON_PACKAGE_ROOT}" ]; then
+        COMMON_PACKAGE_VERSION_URL="https://github.com/${COMMON_PACKAGE_URI_ORG_REPO}/archive/$COMMON_PACKAGE_VERSION.zip"
+        BO_cecho "[bash.origin.workspace] Downloading from '${COMMON_PACKAGE_VERSION_URL}'" WHITE BOLD
 
-    if [ "${COMMON_PACKAGE_ROOT_EXTRACTED}" != "${COMMON_PACKAGE_ROOT}" ]; then
-        BO_exit_error "Extracted root '${COMMON_PACKAGE_ROOT_EXTRACTED}' not in the expected location '${COMMON_PACKAGE_ROOT}'"
+        BO_ensureInSystemCache "COMMON_PACKAGE_ROOT_EXTRACTED" "${COMMON_PACKAGE_URI}" "${COMMON_PACKAGE_VERSION}" "${COMMON_PACKAGE_VERSION_URL}"
+
+        if [ "${COMMON_PACKAGE_ROOT_EXTRACTED}" != "${COMMON_PACKAGE_ROOT}" ]; then
+            BO_exit_error "Extracted root '${COMMON_PACKAGE_ROOT_EXTRACTED}' not in the expected location '${COMMON_PACKAGE_ROOT}'"
+        fi
+    fi
+else
+    if [ ! -e "${COMMON_PACKAGE_ROOT}" ]; then
+        BO_exit_error "No extracted root found at '${COMMON_PACKAGE_ROOT_EXTRACTED}'"
     fi
 fi
 
