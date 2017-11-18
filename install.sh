@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then
-    BO_cecho "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))" WHITE BOLD
+    echo "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))"
+    exit 0
 fi
 
 set +e

@@ -3,7 +3,7 @@
         "bash.origin": "^0.1.74",
         "bash.origin.test": "^0.1.35",
         "bash.origin.modules": "^0.1.25",
-        "bash.origin.express": "^0.1.6",
+        "bash.origin.express": "^0.1.7",
         "fs-extra": "^4.0.2",
         "lodash": "^4.17.4",
         "express": "^4.14.0",
