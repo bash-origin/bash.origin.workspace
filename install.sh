@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then
+    BO_cecho "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))" WHITE BOLD
+fi
+
 set +e
 
 . "node_modules/bash.origin/bash.origin"
@@ -65,7 +69,9 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             else
                 cp "../package.json" "package.json"
             fi
+            export __BO_WORKSPACE_INSTALL=1
             npm install --production
+            export __BO_WORKSPACE_INSTALL=
 
             if [ ! -e "${binSubPath}" ]; then
                 mkdir -p "${binSubPath}"
