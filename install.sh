@@ -80,10 +80,6 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             if [ ! -e "${binSubPath}" ]; then
                 mkdir -p "${binSubPath}"
             fi
-            #rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
-            #ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
-
-            #echo "${COMMON_PACKAGE_ROOT}" > "${binSubPath}/.bash.origin.workspace.path"
 
             touch ".installed"
         fi
@@ -96,6 +92,11 @@ if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
         const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
         if (FS.existsSync(PATH.join(process.cwd(), "package.json"))) {
             if (FS.existsSync("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")) {
+                
+                if (!FS.existsSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'")) {
+                    FS.mkdirSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'");
+                }
+
                 FS.copySync(
                     "'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json",
                     "'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json"
@@ -120,5 +121,7 @@ popd > /dev/null
 
 
 # Link interface path
-echo "${COMMON_PACKAGE_ROOT}/interface-common.js" > "${binSubPath}/.bash.origin.workspace.inf.js.path"
+#echo "${COMMON_PACKAGE_ROOT}/interface-common.js" > "${binSubPath}/.bash.origin.workspace.inf.js.path"
+rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
+ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
 

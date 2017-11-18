@@ -19,6 +19,7 @@ function makeLIB (options) {
         }
         usedAliases[name] = true;
         code.push([
+            '"_path_' + PATH.basename(path) + '": "' + path + '",',
             'get ' + name + '() {',
             '    delete this.' + name + ';',
             '    return (this.' + name + ' = require("' + path + '"));',
@@ -69,9 +70,18 @@ function makeAPI (options) {
     
         get LIB () {
             delete this.LIB;
-            return (this.LIB = makeLIB(options));
+            const LIB = (this.LIB = makeLIB(options));
+
+            LIB.resolve = function (uri) {
+                var uri_parts = uri.split("/");
+                if (!LIB["_path_" + uri_parts[0]]) {
+                    throw new Error("Cannot resolve uri '" + uri + "'!");
+                }
+                return PATH.join(LIB["_path_" + uri_parts[0]], uri_parts.slice(1).join("/"));
+            };
+            return LIB;
         },
-    
+        
         forPackage: function (basePath) {
             return makeAPI({
                 packageBasePath: basePath

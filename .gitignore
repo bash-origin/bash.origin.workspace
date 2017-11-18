@@ -7,3 +7,6 @@ node_modules/
 .installed
 /npm-debug.log
 /dependencies/*/package.json
+
+
+!/dependencies/*/package-lock.json
