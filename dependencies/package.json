@@ -4,6 +4,7 @@
         "bash.origin.test": "^0.1.35",
         "bash.origin.modules": "^0.1.25",
         "bash.origin.express": "^0.1.9",
+        "bash.origin.test": "^0.1.36",
         "fs-extra": "^4.0.2",
         "lodash": "^4.17.4",
         "express": "^4.14.0",
