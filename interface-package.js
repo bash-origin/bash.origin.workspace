@@ -1,15 +1,19 @@
 
+function getModuleForPath (path) {
+    return require(require("fs").readFileSync(path).toString().replace(/\n$/, ""));
+}
+
 module.exports = {
 
     get LIB () {
-        return require("./node_modules/.bin/bash.origin.workspace.inf.js").LIB;        
+        return getModuleForPath(
+            require.resolve("./node_modules/.bin/.bash.origin.workspace.inf.js.path")
+        ).LIB;
     },
 
     forPackage: function (basePath) {
-        return require(
-            require("fs").readFileSync(
-                require.resolve(basePath + "/node_modules/.bin/.bash.origin.workspace.inf.js.path")
-            ).toString()
+        return getModuleForPath(
+            basePath + "/node_modules/.bin/.bash.origin.workspace.inf.js.path"
         ).forPackage(basePath);
     }
 };
