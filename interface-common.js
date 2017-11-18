@@ -106,7 +106,7 @@ if (!FS.existsSync(API.node_modules)) {
     delete env.BO_LOADED;
     env.COMMON_PACKAGE_ROOT = BASE_PATH;
     Object.keys(env).forEach(function (name) {
-        if (/^npm_/.test(name)) {
+        if (!/^npm_/.test(name)) {
             return;
         }
         delete env[name];
