@@ -96,7 +96,10 @@ if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
         const PATH = require("path");
         const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
         if (FS.existsSync(PATH.join(process.cwd(), "package.json"))) {
-            if (FS.existsSync("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")) {
+            if (
+                "'${COMMON_PACKAGE_ROOT}'" !== "'${workspaceRootPath}'" &&
+                FS.existsSync("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")
+            ) {
                 
                 if (!FS.existsSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'")) {
                     FS.mkdirSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'");
