@@ -80,7 +80,7 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
                 cp "../package.json" "package.json"
             fi
             export __BO_WORKSPACE_INSTALL=1
-            npm install --production
+            BO_LOADED= npm install --production
             export __BO_WORKSPACE_INSTALL=
 
             if [ ! -e "${binSubPath}" ]; then
