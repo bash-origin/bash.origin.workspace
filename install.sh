@@ -70,11 +70,11 @@ VERSIONED_DEPENDENCIES_PATH="dependencies/.node-v${NODE_MAJOR_VERSION}"
 if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
     BO_run_recent_node --eval '
         const PATH = require("path");
-        const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
+        const FS = require("fs");
         if (require("./package.json").name === "bash.origin.workspace") {
-            FS.copySync(
+            FS.writeFileSync(
                 "dependencies/postinstall.sh",
-                "'${COMMON_PACKAGE_ROOT}'/dependencies/postinstall.sh"
+                FS.readFileSync("'${COMMON_PACKAGE_ROOT}'/dependencies/postinstall.sh")
             );
         }
     '
