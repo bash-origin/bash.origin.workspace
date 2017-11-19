@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
+binSubPath="node_modules/.bin";
+
 if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then
+    # We only need one copy (the first one) of 'bash.origin.workspace' available which will install
+    # everything, link its bin files and interface file. 
+
+    # The only thing we have to do is link the interface file.
+    rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
+    ln -s "${__BO_WORKSPACE_INSTALL}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
+
     echo "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))"
     exit 0
 fi
@@ -55,7 +64,6 @@ export BO_VERSION_NVM_NODE="${NODE_MAJOR_VERSION}"
 
 # Make sure the dependencies are installed
 workspaceRootPath="$(pwd)"
-binSubPath="node_modules/.bin";
 pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
     VERSIONED_DEPENDENCIES_PATH="dependencies/.node-v${NODE_MAJOR_VERSION}"
@@ -79,7 +87,7 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             else
                 cp "../package.json" "package.json"
             fi
-            export __BO_WORKSPACE_INSTALL=1
+            export __BO_WORKSPACE_INSTALL="${COMMON_PACKAGE_ROOT}"
             BO_LOADED= npm install --production
             export __BO_WORKSPACE_INSTALL=
 
@@ -130,7 +138,6 @@ popd > /dev/null
 
 
 # Link interface path
-#echo "${COMMON_PACKAGE_ROOT}/interface-common.js" > "${binSubPath}/.bash.origin.workspace.inf.js.path"
 rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
 ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
 

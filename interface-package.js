@@ -1,7 +1,6 @@
 
 function getModuleForPath (path) {
     return require(path);
-//    return require(require("fs").readFileSync(path).toString().replace(/\n$/, ""));
 }
 
 module.exports = {
