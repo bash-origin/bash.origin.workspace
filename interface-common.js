@@ -37,6 +37,9 @@ function makeLIB (options) {
         }
         FS.readdirSync(basePath).map(function (filename) {
             var name = filename.toUpperCase().replace(/[\.-]/g, "_");
+            if (!/^[A-Z0-9_]+$/.test(name)) {
+                return;
+            }
             addGetter(name, PATH.join(basePath, filename));
         });
     });
