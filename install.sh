@@ -12,6 +12,7 @@ if [ ! -e "node_modules/bash.origin/bash.origin" ]; then
     exit 1
 fi
 
+BO_LOADED=
 . "node_modules/bash.origin/bash.origin"
 
 BO_cecho "[bash.origin.workspace] ----- START INSTALL ----- (pwd: $(pwd))" WHITE BOLD
