@@ -8,6 +8,7 @@ if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then
 
     # The only thing we have to do is link the interface file.
     rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
+    mkdir -p "${binSubPath}" || true
     ln -s "${__BO_WORKSPACE_INSTALL}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
 
     echo "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))"
@@ -56,88 +57,27 @@ else
     fi
 fi
 
+
 NODE_MAJOR_VERSION="$(node --version 2>&1 | perl -pe 's/^v(\d+).+$/$1/')"
 BO_cecho "[bash.origin.workspace] NODE_MAJOR_VERSION: ${NODE_MAJOR_VERSION}" WHITE BOLD
 
 export BO_VERSION_RECENT_NODE="${NODE_MAJOR_VERSION}"
 export BO_VERSION_NVM_NODE="${NODE_MAJOR_VERSION}"
 
-# Make sure the dependencies are installed
-workspaceRootPath="$(pwd)"
-pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
+VERSIONED_DEPENDENCIES_PATH="dependencies/.node-v${NODE_MAJOR_VERSION}"
 
-    VERSIONED_DEPENDENCIES_PATH="dependencies/.node-v${NODE_MAJOR_VERSION}"
-    [ -e "${VERSIONED_DEPENDENCIES_PATH}" ] || mkdir "${VERSIONED_DEPENDENCIES_PATH}"
-
-    pushd "${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
-
-        if BO_has_cli_arg "--force"; then
-            BO_cecho "[bash.origin.workspace] Forcing install of dependencies in: $(pwd)" MAGENTA BOLD
-            rm ".installed" || true
-            rm "package-lock.json" || true
-            rm -Rf "node_modules" || true
-        fi
-
-        if [ ! -e ".installed" ]; then
-            BO_cecho "[bash.origin.workspace] Installing dependencies in: $(pwd)" WHITE BOLD
-
-            rm -Rf "package.json" || true
-            if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
-                cp "${workspaceRootPath}/dependencies/package.json" "package.json"
-            else
-                cp "../package.json" "package.json"
-            fi
-            export __BO_WORKSPACE_INSTALL="${COMMON_PACKAGE_ROOT}"
-            BO_LOADED= npm install --production
-            export __BO_WORKSPACE_INSTALL=
-
-            if [ ! -e "${binSubPath}" ]; then
-                mkdir -p "${binSubPath}"
-            fi
-
-            touch ".installed"
-        fi
-    popd > /dev/null
-popd > /dev/null
 
 if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
     BO_run_recent_node --eval '
         const PATH = require("path");
         const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
-        if (FS.existsSync(PATH.join(process.cwd(), "package.json"))) {
-            if (
-                "'${COMMON_PACKAGE_ROOT}'" !== "'${workspaceRootPath}'" &&
-                FS.existsSync("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")
-            ) {
-                
-                if (!FS.existsSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'")) {
-                    FS.mkdirSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'");
-                }
-
-                FS.copySync(
-                    "'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json",
-                    "'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json"
-                );
-            }
+        if (require("./package.json").name === "bash.origin.workspace") {
+            FS.copySync(
+                "dependencies/postinstall.sh",
+                "'${COMMON_PACKAGE_ROOT}'/dependencies/postinstall.sh"
+            );
         }
     '
 fi
 
-
-# Link bin files
-pushd "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
-
-    BO_cecho "[bash.origin.workspace] Linking commands from bin '$(pwd)/${binSubPath}':" WHITE BOLD
-    for subpath in ${binSubPath}/*; do
-        BO_cecho "[bash.origin.workspace]   ${subpath}" WHITE BOLD
-
-        rm -f "${workspaceRootPath}/${subpath}" || true
-        ln -s "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/${subpath}" "${workspaceRootPath}/${subpath}"
-    done
-popd > /dev/null
-
-
-# Link interface path
-rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
-ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
-
+. "${COMMON_PACKAGE_ROOT}/dependencies/postinstall.sh"
