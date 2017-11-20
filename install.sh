@@ -7,6 +7,7 @@ if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then
     # everything, link its bin files and interface file. 
 
     # The only thing we have to do is link the interface file.
+    echo "[bash.origin.workspace] Linking interface file to '$(pwd)/${binSubPath}/bash.origin.workspace.inf.js'"
     rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
     mkdir -p "${binSubPath}" || true
     ln -s "${__BO_WORKSPACE_INSTALL}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
