@@ -14,6 +14,7 @@ module.exports = {
             }
             path = basePath;
             basePath = PATH.dirname(basePath);
+console.error("look in path", path, basePath);
             if (basePath === path) {
                 throw new Error("[bash.origin.workspace] While resolving 'LIB' cannot find 'node_modules/.bin/bash.origin.workspace.inf.js' from '" + __dirname + "' nor by walking up the tree!");
             }
