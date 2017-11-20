@@ -77,4 +77,4 @@ popd > /dev/null
 # Link interface path
 BO_cecho "[bash.origin.workspace] Linking interface file to '$(pwd)/${binSubPath}/bash.origin.workspace.inf.js'" WHITE BOLD
 rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
-ln -s "${COMMON_PACKAGE_ROOT}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
+ln -s "${COMMON_PACKAGE_ROOT}/interface-common.js" "${binSubPath}/bash.origin.workspace.inf.js"

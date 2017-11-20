@@ -10,7 +10,7 @@ if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then
     echo "[bash.origin.workspace] Linking interface file to '$(pwd)/${binSubPath}/bash.origin.workspace.inf.js'"
     rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
     mkdir -p "${binSubPath}" || true
-    ln -s "${__BO_WORKSPACE_INSTALL}/interface.js" "${binSubPath}/bash.origin.workspace.inf.js"
+    ln -s "${__BO_WORKSPACE_INSTALL}/interface-common.js" "${binSubPath}/bash.origin.workspace.inf.js"
 
     echo "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))"
     exit 0
