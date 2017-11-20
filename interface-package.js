@@ -10,11 +10,10 @@ module.exports = {
         while (true) {
             path = PATH.join(basePath, "node_modules/.bin/bash.origin.workspace.inf.js");
             if (FS.existsSync(path)) {
-                return require(basePath).LIB;
+                return require(path).LIB;
             }
             path = basePath;
             basePath = PATH.dirname(basePath);
-console.error("look in path", path, basePath);
             if (basePath === path) {
                 throw new Error("[bash.origin.workspace] While resolving 'LIB' cannot find 'node_modules/.bin/bash.origin.workspace.inf.js' from '" + __dirname + "' nor by walking up the tree!");
             }
