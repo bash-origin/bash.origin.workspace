@@ -9,4 +9,5 @@ node_modules/
 /dependencies/*/
 
 
+!/dependencies/bin/
 !/dependencies/*/package-lock.json
