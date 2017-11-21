@@ -18,13 +18,13 @@ fi
 
 set +e
 
-boRootScriptPath="node_modules/bash.origin/bash.origin"
+boRootScriptPath="$(node --eval 'process.stdout.write(
+    require("path").join(require.resolve("bash.origin/package.json"), "../bash.origin")
+);')"
+
 if [ ! -e "${boRootScriptPath}" ]; then
-    boRootScriptPath="../../node_modules/bash.origin/bash.origin"
-    if [ ! -e "${boRootScriptPath}" ]; then
-        echo "[bash.origin.workspace] ----- ERROR STARTING INSTALL ('[../../]node_modules/bash.origin/bash.origin' not found) ----- (pwd: $(pwd))"
-        exit 1
-    fi
+    echo "[bash.origin.workspace] ----- ERROR STARTING INSTALL ('bash.origin/package.json' not found) ----- (pwd: $(pwd))"
+    exit 1
 fi
 
 BO_LOADED=
