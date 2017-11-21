@@ -18,13 +18,17 @@ fi
 
 set +e
 
-if [ ! -e "node_modules/bash.origin/bash.origin" ]; then
-    echo "[bash.origin.workspace] ----- ERROR STARTING INSTALL ('node_modules/bash.origin/bash.origin' not found) ----- (pwd: $(pwd))"
-    exit 1
+boRootScriptPath="node_modules/bash.origin/bash.origin"
+if [ ! -e "${boRootScriptPath}" ]; then
+    boRootScriptPath="../../node_modules/bash.origin/bash.origin"
+    if [ ! -e "${boRootScriptPath}" ]; then
+        echo "[bash.origin.workspace] ----- ERROR STARTING INSTALL ('[../../]node_modules/bash.origin/bash.origin' not found) ----- (pwd: $(pwd))"
+        exit 1
+    fi
 fi
 
 BO_LOADED=
-. "node_modules/bash.origin/bash.origin"
+. "${boRootScriptPath}"
 
 BO_cecho "[bash.origin.workspace] ----- START INSTALL ----- (pwd: $(pwd))" WHITE BOLD
 
