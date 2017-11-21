@@ -97,7 +97,7 @@ function makeAPI (options) {
 
 const API = module.exports = makeAPI();
 
-
+/*
 if (!FS.existsSync(API.node_modules)) {
     
     process.stdout.write("TEST_MATCH_IGNORE>>>\n");
@@ -123,3 +123,4 @@ if (!FS.existsSync(API.node_modules)) {
     process.stdout.write("<<<TEST_MATCH_IGNORE\n");
     process.stderr.write("<<<TEST_MATCH_IGNORE\n");
 }
+*/

@@ -1,3 +1,7 @@
+/examples/
+/circle.yml
+
+
 node_modules/
 /examples/*/.actual.*
 /examples/*/.bash.origin
