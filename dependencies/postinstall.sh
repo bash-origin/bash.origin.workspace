@@ -37,6 +37,44 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
     popd > /dev/null
 popd > /dev/null
 
+
+# Replace installed packages with sources if available.
+if [ ! -z "$BO_PLUGIN_SEARCH_DIRPATHS" ]; then
+    BO_cecho "[bash.origin.workspace] Linking sources from '${BO_PLUGIN_SEARCH_DIRPATHS}' to '${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/node_modules':" WHITE BOLD
+    BO_run_recent_node --eval '
+        const PATH = require("path");
+        const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
+        const SOURCE_BASE_PATH = "'${BO_PLUGIN_SEARCH_DIRPATHS}'";
+        const TARGET_BASE_PATH = "'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules";
+
+        FS.readdirSync(SOURCE_BASE_PATH).forEach(function (filepath) {
+            if (FS.existsSync(PATH.join(SOURCE_BASE_PATH, filepath, "package.json"))) {
+                var descriptor = JSON.parse(FS.readFileSync(PATH.join(SOURCE_BASE_PATH, filepath, "package.json")));
+                if (!descriptor.name) {
+                    return;
+                }
+                var targetPath = PATH.join(TARGET_BASE_PATH, descriptor.name);
+                if (
+                    (
+                        descriptor.pm === "npm" ||
+                        (
+                            typeof descriptor.pm === "object" &&
+                            descriptor.pm.publish === "npm"
+                        )
+                    ) &&
+                    FS.existsSync(targetPath)
+                ) {
+                    process.stdout.write("[bash.origin.workspace]   " + descriptor.name + "\n");
+                    FS.removeSync(targetPath);
+                    FS.symlinkSync(PATH.join(SOURCE_BASE_PATH, filepath), targetPath);
+                }
+            }
+        });
+    '
+fi
+
+
+# Sync lockfile from common location to our package so we can freeze dependencies.
 if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
     BO_run_recent_node --eval '
         const PATH = require("path");

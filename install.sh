@@ -74,11 +74,13 @@ if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
         const FS = require("fs");
         if (require("./package.json").name === "bash.origin.workspace") {
             FS.writeFileSync(
-                "dependencies/postinstall.sh",
-                FS.readFileSync("'${COMMON_PACKAGE_ROOT}'/dependencies/postinstall.sh")
+                "'${COMMON_PACKAGE_ROOT}'/dependencies/postinstall.sh",
+                FS.readFileSync("dependencies/postinstall.sh")
             );
         }
     '
 fi
+
+BO_cecho "[bash.origin.workspace] Calling postinstall at '${COMMON_PACKAGE_ROOT}/dependencies/postinstall.sh'" WHITE BOLD
 
 . "${COMMON_PACKAGE_ROOT}/dependencies/postinstall.sh"
