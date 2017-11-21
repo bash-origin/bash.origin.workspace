@@ -102,11 +102,12 @@ fi
 # Link bin files
 pushd "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
 
-    BO_cecho "[bash.origin.workspace] Linking commands from bin '$(pwd)/${binSubPath}':" WHITE BOLD
+    BO_cecho "[bash.origin.workspace] Linking commands from bin '$(pwd)/${binSubPath}' to '${workspaceRootPath}':" WHITE BOLD
     for subpath in ${binSubPath}/*; do
         BO_cecho "[bash.origin.workspace]   ${subpath}" WHITE BOLD
 
         rm -f "${workspaceRootPath}/${subpath}" || true
+        mkdir -p "$(dirname "${workspaceRootPath}/${subpath}")" || true
         ln -s "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/${subpath}" "${workspaceRootPath}/${subpath}"
     done
 popd > /dev/null
