@@ -2,7 +2,7 @@
     "dependencies": {
         "bash.origin": "^0.1.74",
         "bash.origin.test": "^0.1.35",
-        "bash.origin.modules": "^0.1.25",
+        "bash.origin.modules": "^0.1.28",
         "bash.origin.express": "^0.1.10",
         "bash.origin.test": "^0.1.36",
         "escape-regexp": "^0.0.1",
