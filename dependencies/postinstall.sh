@@ -25,7 +25,7 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
                 cp "../package.json" "package.json"
             fi
             export __BO_WORKSPACE_INSTALL="${COMMON_PACKAGE_ROOT}"
-            BO_LOADED= npm install --production
+            BO_LOADED= npm install --production 1>&2
             export __BO_WORKSPACE_INSTALL=
 
             if [ ! -e "${binSubPath}" ]; then
@@ -64,7 +64,7 @@ if [ ! -z "$BO_PLUGIN_SEARCH_DIRPATHS" ]; then
                     ) &&
                     FS.existsSync(targetPath)
                 ) {
-                    process.stdout.write("[bash.origin.workspace]   " + descriptor.name + "\n");
+                    process.stderr.write("[bash.origin.workspace]   " + descriptor.name + "\n");
                     FS.removeSync(targetPath);
                     FS.symlinkSync(PATH.join(SOURCE_BASE_PATH, filepath), targetPath);
                 }

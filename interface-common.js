@@ -98,8 +98,11 @@ function makeAPI (options) {
 const API = module.exports = makeAPI();
 
 /*
+// NOTE: This is not a good idea. If we run it from here we need to clean the PATH
+//       as it may contain commands that are broken (e.g. `node_modules/.bin/touch`)
+// The NodeJS version cannot change between install and runtime.
 if (!FS.existsSync(API.node_modules)) {
-    
+
     process.stdout.write("TEST_MATCH_IGNORE>>>\n");
     process.stderr.write("TEST_MATCH_IGNORE>>>\n");
     

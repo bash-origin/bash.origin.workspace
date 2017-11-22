@@ -7,12 +7,12 @@ if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then
     # everything, link its bin files and interface file. 
 
     # The only thing we have to do is link the interface file.
-    echo "[bash.origin.workspace] Linking interface file to '$(pwd)/${binSubPath}/bash.origin.workspace.inf.js'"
+    echo >&2 "[bash.origin.workspace] Linking interface file to '$(pwd)/${binSubPath}/bash.origin.workspace.inf.js'"
     rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
     mkdir -p "${binSubPath}" || true
     ln -s "${__BO_WORKSPACE_INSTALL}/interface-common.js" "${binSubPath}/bash.origin.workspace.inf.js"
 
-    echo "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))"
+    echo >&2 "[bash.origin.workspace] ----- SKIP INSTALL (already installing) ----- (pwd: $(pwd))"
     exit 0
 fi
 
@@ -23,7 +23,7 @@ boRootScriptPath="$(node --eval 'process.stdout.write(
 );')"
 
 if [ ! -e "${boRootScriptPath}" ]; then
-    echo "[bash.origin.workspace] ----- ERROR STARTING INSTALL ('bash.origin/package.json' not found) ----- (pwd: $(pwd))"
+    echo >&2 "[bash.origin.workspace] ----- ERROR STARTING INSTALL ('bash.origin/package.json' not found) ----- (pwd: $(pwd))"
     exit 1
 fi
 
