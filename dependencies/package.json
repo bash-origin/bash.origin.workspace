@@ -1,4 +1,5 @@
 {
+    "name": "bash.origin.workspace.dependencies",
     "dependencies": {
         "bash.origin": "^0.1.77",
         "bash.origin.test": "^0.1.35",
