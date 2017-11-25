@@ -64,7 +64,7 @@ if [ -z "$COMMON_PACKAGE_ROOT" ]; then
         COMMON_PACKAGE_VERSION_URL="https://github.com/${COMMON_PACKAGE_URI_ORG_REPO}/archive/$COMMON_PACKAGE_VERSION.zip"
         BO_cecho "[bash.origin.workspace] Downloading from '${COMMON_PACKAGE_VERSION_URL}'" WHITE BOLD
 
-        BO_ensureInSystemCache "COMMON_PACKAGE_ROOT_EXTRACTED" "${COMMON_PACKAGE_URI}" "${COMMON_PACKAGE_VERSION}" "${COMMON_PACKAGE_VERSION_URL}"
+        BO_ALLOW_DOWNLOADS=1 BO_ensureInSystemCache "COMMON_PACKAGE_ROOT_EXTRACTED" "${COMMON_PACKAGE_URI}" "${COMMON_PACKAGE_VERSION}" "${COMMON_PACKAGE_VERSION_URL}"
 
         if [ "${COMMON_PACKAGE_ROOT_EXTRACTED}" != "${COMMON_PACKAGE_ROOT}" ]; then
             BO_exit_error "Extracted root '${COMMON_PACKAGE_ROOT_EXTRACTED}' not in the expected location '${COMMON_PACKAGE_ROOT}'"
