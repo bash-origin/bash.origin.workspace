@@ -4,7 +4,10 @@
 workspaceRootPath="$(pwd)"
 pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
-    [ -e "${VERSIONED_DEPENDENCIES_PATH}" ] || mkdir "${VERSIONED_DEPENDENCIES_PATH}"
+    if [ ! -e "${VERSIONED_DEPENDENCIES_PATH}" ]; then
+        BO_cecho "[bash.origin.workspace] Creating node version-specific install directory at: $(pwd)/${VERSIONED_DEPENDENCIES_PATH}" MAGENTA BOLD
+        mkdir -p "${VERSIONED_DEPENDENCIES_PATH}"
+    fi
 
     pushd "${VERSIONED_DEPENDENCIES_PATH}" > /dev/null
 
