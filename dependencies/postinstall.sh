@@ -50,8 +50,8 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             touch ".installed"
 
             for subpath in "node_modules"/*; do
-                if [ -e "${subpath}/package.json" ]; then
-                    touch "${subpath}/.installed"
+                if [ -e "node_modules/${subpath}/package.json" ]; then
+                    touch "node_modules/${subpath}/.installed"
                 fi
             done
         fi
