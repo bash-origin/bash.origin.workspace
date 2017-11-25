@@ -23,8 +23,13 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
             rm -Rf "package.json" || true
             if [ "${npm_package_name}" == "bash.origin.workspace" ] && [ -e "${workspaceRootPath}/${VERSIONED_DEPENDENCIES_PATH}" ]; then
-                BO_cecho "[bash.origin.workspace] Copying package descriptor from '${workspaceRootPath}/dependencies/package.json' to '$(pwd)/package.json'"
-                cp "${workspaceRootPath}/dependencies/package.json" "package.json"
+                if [[ $BO_WORKSPACE_INSTALL_MINIMAL == 1 ]]; then
+                    BO_cecho "[bash.origin.workspace] Copying package descriptor from '${workspaceRootPath}/dependencies/package-minimal.json' to '$(pwd)/package.json'"
+                    cp "${workspaceRootPath}/dependencies/package-minimal.json" "package.json"
+                else
+                    BO_cecho "[bash.origin.workspace] Copying package descriptor from '${workspaceRootPath}/dependencies/package.json' to '$(pwd)/package.json'"
+                    cp "${workspaceRootPath}/dependencies/package.json" "package.json"
+                fi
             else
                 if [[ $BO_WORKSPACE_INSTALL_MINIMAL == 1 ]]; then
                     BO_cecho "[bash.origin.workspace] Copying package descriptor from '$(pwd)/../package-minimal.json' to '$(pwd)/package.json'"
