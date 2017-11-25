@@ -26,8 +26,13 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
                 BO_cecho "[bash.origin.workspace] Copying package descriptor from '${workspaceRootPath}/dependencies/package.json' to '$(pwd)/package.json'"
                 cp "${workspaceRootPath}/dependencies/package.json" "package.json"
             else
-                BO_cecho "[bash.origin.workspace] Copying package descriptor from '$(pwd)/../package.json' to '$(pwd)/package.json'"
-                cp "../package.json" "package.json"
+                if [[ $BO_WORKSPACE_INSTALL_MINIMAL == 1 ]]; then
+                    BO_cecho "[bash.origin.workspace] Copying package descriptor from '$(pwd)/../package-minimal.json' to '$(pwd)/package.json'"
+                    cp "../package-minimal.json" "package.json"
+                else
+                    BO_cecho "[bash.origin.workspace] Copying package descriptor from '$(pwd)/../package.json' to '$(pwd)/package.json'"
+                    cp "../package.json" "package.json"
+                fi
             fi
             export __BO_WORKSPACE_INSTALL="${COMMON_PACKAGE_ROOT}"
             BO_LOADED= npm install --production 1>&2
