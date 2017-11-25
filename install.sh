@@ -32,6 +32,10 @@ BO_LOADED=
 
 BO_cecho "[bash.origin.workspace] ----- START INSTALL ----- (pwd: $(pwd))" WHITE BOLD
 
+BO_cecho "[bash.origin.workspace] UID: ${UID}" WHITE BOLD
+BO_cecho "[bash.origin.workspace] EUID: ${EUID}" WHITE BOLD
+BO_cecho "[bash.origin.workspace] GROUPS: ${GROUPS}" WHITE BOLD
+
 COMMON_PACKAGE_URI_ORG_REPO="bash-origin/bash.origin.workspace"
 COMMON_PACKAGE_URI="github.com/${COMMON_PACKAGE_URI_ORG_REPO}"
 COMMON_PACKAGE_VERSION=$(BO_getLatestTagForURI "${COMMON_PACKAGE_URI}")
