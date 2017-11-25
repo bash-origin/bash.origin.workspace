@@ -5,7 +5,7 @@ workspaceRootPath="$(pwd)"
 pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
     if [ ! -e "${VERSIONED_DEPENDENCIES_PATH}" ]; then
-        BO_cecho "[bash.origin.workspace] Creating node version-specific install directory at: $(pwd)/${VERSIONED_DEPENDENCIES_PATH}" MAGENTA BOLD
+        BO_cecho "[bash.origin.workspace] Creating node version-specific install directory at: $(pwd)/${VERSIONED_DEPENDENCIES_PATH}" WHITE BOLD
         mkdir -p "${VERSIONED_DEPENDENCIES_PATH}"
     fi
 
@@ -22,9 +22,11 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
             BO_cecho "[bash.origin.workspace] Installing dependencies in: $(pwd)" WHITE BOLD
 
             rm -Rf "package.json" || true
-            if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
+            if [ "${npm_package_name}" == "bash.origin.workspace" ] && [ -e "${workspaceRootPath}/${VERSIONED_DEPENDENCIES_PATH}" ]; then
+                BO_cecho "[bash.origin.workspace] Copying package descriptor from '${workspaceRootPath}/dependencies/package.json' to '$(pwd)/package.json'"
                 cp "${workspaceRootPath}/dependencies/package.json" "package.json"
             else
+                BO_cecho "[bash.origin.workspace] Copying package descriptor from '$(pwd)/../package.json' to '$(pwd)/package.json'"
                 cp "../package.json" "package.json"
             fi
             export __BO_WORKSPACE_INSTALL="${COMMON_PACKAGE_ROOT}"
