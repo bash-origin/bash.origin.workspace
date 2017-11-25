@@ -39,6 +39,9 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
                     cp "../package.json" "package.json"
                 fi
             fi
+
+            BO_cecho "[bash.origin.workspace] Installing '$(pwd)' using npm"
+
             export __BO_WORKSPACE_INSTALL="${COMMON_PACKAGE_ROOT}"
             BO_LOADED= npm install --production 1>&2
             export __BO_WORKSPACE_INSTALL=
@@ -61,7 +64,7 @@ popd > /dev/null
 
 # Replace installed packages with sources if available.
 if [ ! -z "$BO_PLUGIN_SEARCH_DIRPATHS" ]; then
-    if [ "${BO_PLUGIN_SEARCH_DIRPATHS}" !== "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/node_modules" ]; then
+    if [ "${BO_PLUGIN_SEARCH_DIRPATHS}" != "${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/node_modules" ]; then
         BO_cecho "[bash.origin.workspace] Linking sources from '${BO_PLUGIN_SEARCH_DIRPATHS}' to '${COMMON_PACKAGE_ROOT}/${VERSIONED_DEPENDENCIES_PATH}/node_modules':" WHITE BOLD
         BO_run_recent_node --eval '
             const PATH = require("path");
