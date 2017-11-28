@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-        "bash.origin": "^0.1.79",
+        "bash.origin": "^0.1.82",
         "bash.origin.modules": "^0.1.28",
         "fs-extra": "^4.0.2",
         "lodash": "^4.17.4"

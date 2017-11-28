@@ -1,0 +1,42 @@
+
+########## RUN TEST ON DOCKER IMAGE ##########
+
+VERBOSE: 
+BO_VERBOSE: 
+UID: 0
+EUID: 0
+GROUPS: 0
+package source: /node_modules/bash.origin.workspace/interface-package.js
+which bash.origin: /node_modules/.bin/bash.origin
+which bash.origin.script: /node_modules/.bin/bash.origin.script
+which bash.origin.test: /node_modules/.bin/bash.origin.test
+which bash.origin.workspace.inf.js: /node_modules/.bin/bash.origin.workspace.inf.js
+/ /
+bin  home	 media	       package-lock.json  root	script.sh  test.sh  var
+dev  install.sh  mnt	       package.json	  run	srv	   tmp
+etc  lib	 node_modules  proc		  sbin	sys	   usr
+/
+/node_modules /
+bash.origin.workspace
+/
+/node_modules/.bin /
+bash.origin  bash.origin.script  bash.origin.test  bash.origin.workspace.inf.js
+/
+/usr/local/bin /
+yarn  yarnpkg
+/
+/usr/local/lib /
+bash.origin.cache  perl5
+/
+/usr/local/lib/bash.origin.cache /
+github.com~bash-origin~bash.origin.workspace~
+/
+
+########## RUN SCRIPT ON DOCKER IMAGE ##########
+
+BO_PREFIX_DIR: /usr/local
+BO_ASSUME_NODE: 
+BO_VERSION_NODE: 
+v9.2.0
+{"foo":"bar","key":"value"}
+[0;32mOK[0m
