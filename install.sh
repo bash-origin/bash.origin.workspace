@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+echo "----------"
+printenv
+echo "----------"
+
 binSubPath="node_modules/.bin";
 
 if [ ! -z "$__BO_WORKSPACE_INSTALL" ]; then

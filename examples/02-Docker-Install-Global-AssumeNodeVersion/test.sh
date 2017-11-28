@@ -16,6 +16,18 @@ echo "which bash.origin.test: $(which bash.origin.test)"
 echo "which bash.origin.workspace.inf.js: $(which bash.origin.workspace.inf.js)"
 
 
+function showInfo {
+    pushd "$1"
+        ls
+    popd
+}
+
+showInfo .
+showInfo /usr/local/bin
+showInfo /usr/local/lib
+showInfo /usr/local/lib/bash.origin.cache
+
+
 #export BO_VERBOSE=1
 export BO_PLUGIN_SEARCH_DIRPATHS=$(node --eval 'process.stdout.write(require("'$(which bash.origin.workspace.inf.js)'").node_modules);')
 
