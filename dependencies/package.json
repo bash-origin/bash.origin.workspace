@@ -3,9 +3,9 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-        "bash.origin": "^0.1.79",
-        "bash.origin.test": "^0.1.35",
-        "bash.origin.modules": "^0.1.28",
+        "bash.origin": "^0.1.81",
+        "bash.origin.test": "^0.1.36",
+        "bash.origin.modules": "^0.1.29",
         "bash.origin.express": "^0.1.10",
         "bash.origin.test": "^0.1.36",
         "escape-regexp": "^0.0.1",

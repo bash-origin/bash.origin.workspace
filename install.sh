@@ -29,7 +29,7 @@ fi
 
 
 NODE_MAJOR_VERSION="$(node --version 2>&1 | perl -pe 's/^v(\d+).+$/$1/')"
-echo "[bash.origin.workspace] NODE_MAJOR_VERSION: ${NODE_MAJOR_VERSION}" WHITE BOLD
+echo "[bash.origin.workspace] NODE_MAJOR_VERSION: ${NODE_MAJOR_VERSION}"
 
 export BO_VERSION_RECENT_NODE="${NODE_MAJOR_VERSION}"
 export BO_VERSION_NVM_NODE="${NODE_MAJOR_VERSION}"
