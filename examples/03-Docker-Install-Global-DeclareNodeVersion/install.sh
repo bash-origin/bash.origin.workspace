@@ -26,4 +26,3 @@ echo "Install workspace package ..."
 # '--unsafe-perm' is needed to not use the 'nobody' group.
 export BO_WORKSPACE_INSTALL_MINIMAL=1
 npm install --unsafe-perm -g bash.origin.workspace --production
-

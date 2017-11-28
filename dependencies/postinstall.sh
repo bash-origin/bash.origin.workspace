@@ -143,3 +143,9 @@ popd > /dev/null
 BO_cecho "[bash.origin.workspace] Linking interface file to '$(pwd)/${binSubPath}/bash.origin.workspace.inf.js'" WHITE BOLD
 rm -Rf "${binSubPath}/bash.origin.workspace.inf.js" || true
 ln -s "${COMMON_PACKAGE_ROOT}/interface-common.js" "${binSubPath}/bash.origin.workspace.inf.js"
+
+
+# Link bin paths globally
+#if [ "${npm_config_global}" == "true" ]; then
+    # TODO: Run BO install & link other bins like bash.origin.test
+#fi
