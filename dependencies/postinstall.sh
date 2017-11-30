@@ -105,19 +105,21 @@ if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
     BO_run_recent_node --eval '
         const PATH = require("path");
         const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
+
+        const COMMON_PACKAGE_ROOT = FS.realpathSync("'${COMMON_PACKAGE_ROOT}'");
+        const workspaceRootPath = FS.realpathSync("'${workspaceRootPath}'");
+
         if (require("./package.json").name === "bash.origin.workspace") {
             if (
-                "'${COMMON_PACKAGE_ROOT}'" !== "'${workspaceRootPath}'" &&
-                FS.existsSync("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")
-            ) {
-                
-                if (!FS.existsSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'")) {
-                    FS.mkdirSync("'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'");
+                COMMON_PACKAGE_ROOT !== workspaceRootPath &&
+                FS.existsSync(COMMON_PACKAGE_ROOT + "/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json")
+            ) {                
+                if (!FS.existsSync(workspaceRootPath + "/'${VERSIONED_DEPENDENCIES_PATH}'")) {
+                    FS.mkdirSync(workspaceRootPath + "/'${VERSIONED_DEPENDENCIES_PATH}'");
                 }
-
                 FS.copySync(
-                    "'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json",
-                    "'${workspaceRootPath}'/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json"
+                    COMMON_PACKAGE_ROOT + "/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json",
+                    workspaceRootPath + "/'${VERSIONED_DEPENDENCIES_PATH}'/package-lock.json"
                 );
             }
         }
