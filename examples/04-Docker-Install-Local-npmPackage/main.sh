@@ -13,9 +13,9 @@ depend {
 }
 
 
-CALL_docker build . "bo-workspace-03"
+CALL_docker build . "bo-workspace-04"
 
 echo "<<<TEST_MATCH_IGNORE"
 
 
-CALL_docker run "bo-workspace-03"
+CALL_docker run "bo-workspace-04"
