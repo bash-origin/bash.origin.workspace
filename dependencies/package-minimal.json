@@ -4,7 +4,7 @@
     "private": true,
     "dependencies": {
         "bash.origin": "^0.1.88",
-        "bash.origin.modules": "^0.1.28",
+        "bash.origin.modules": "^0.1.29",
         "fs-extra": "^4.0.2",
         "lodash": "^4.17.4"
     }

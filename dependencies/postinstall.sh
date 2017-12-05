@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ -z "$BO_WORKSPACE_INSTALL_MINIMAL" ]; then
+    export BO_WORKSPACE_INSTALL_FULL=1
+fi
+
+
 # Make sure the dependencies are installed
 workspaceRootPath="$(pwd)"
 pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
@@ -23,7 +28,10 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
 
             rm -Rf "package.json" || true
             if [ "${npm_package_name}" == "bash.origin.workspace" ] && [ -e "${workspaceRootPath}/${VERSIONED_DEPENDENCIES_PATH}" ]; then
-                if [[ $BO_WORKSPACE_INSTALL_MINIMAL == 1 ]]; then
+                if [[ $BO_WORKSPACE_INSTALL_FULL == 1 ]]; then
+                    BO_cecho "[bash.origin.workspace] Copying package descriptor from '${workspaceRootPath}/dependencies/package-full.json' to '$(pwd)/package.json'"
+                    cp "${workspaceRootPath}/dependencies/package-full.json" "package.json"
+                elif [[ $BO_WORKSPACE_INSTALL_MINIMAL == 1 ]]; then
                     BO_cecho "[bash.origin.workspace] Copying package descriptor from '${workspaceRootPath}/dependencies/package-minimal.json' to '$(pwd)/package.json'"
                     cp "${workspaceRootPath}/dependencies/package-minimal.json" "package.json"
                 else
@@ -31,7 +39,10 @@ pushd "${COMMON_PACKAGE_ROOT}" > /dev/null
                     cp "${workspaceRootPath}/dependencies/package.json" "package.json"
                 fi
             else
-                if [[ $BO_WORKSPACE_INSTALL_MINIMAL == 1 ]]; then
+                if [[ $BO_WORKSPACE_INSTALL_FULL == 1 ]]; then
+                    BO_cecho "[bash.origin.workspace] Copying package descriptor from '$(pwd)/../package-full.json' to '$(pwd)/package.json'"
+                    cp "../package-full.json" "package.json"
+                elif [[ $BO_WORKSPACE_INSTALL_MINIMAL == 1 ]]; then
                     BO_cecho "[bash.origin.workspace] Copying package descriptor from '$(pwd)/../package-minimal.json' to '$(pwd)/package.json'"
                     cp "../package-minimal.json" "package.json"
                 else
