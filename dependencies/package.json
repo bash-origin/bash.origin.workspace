@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-        "bash.origin": "^0.1.86",
+        "bash.origin": "^0.1.88",
         "bash.origin.test": "^0.1.36",
         "bash.origin.modules": "^0.1.29",
         "bash.origin.express": "^0.1.10",
