@@ -28,6 +28,10 @@
         "pinf-loader-js": "^0.4.21",
         "it.pinf.org.npmjs": "^0.1.4",
         "jest": "^21.2.1",
-        "nightwatch": "^0.9.16"
+        "nightwatch": "^0.9.16",
+        "it.pinf.org.mozilla.web-ext": "^0.1.10",
+        "to.pinf.org.mozilla.web-ext": "^0.1.7",
+        "to.pinf.com.github.pages": "^0.1.9",
+        "bash.origin.gitscm": "^0.1.3"
     }
 }
