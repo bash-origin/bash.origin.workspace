@@ -5,7 +5,16 @@ const FS = require("fs");
 
 const BASE_PATH = PATH.dirname(FS.realpathSync(__filename));
 
+const NODE_MODULES = PATH.join(
+    BASE_PATH,
+    "dependencies/.node-" + process.version.split(".")[0],
+    "node_modules"
+);
 
+
+if (!process.env.BO_SYSTEM_CACHE_DIR) {
+    process.env.BO_SYSTEM_CACHE_DIR = NODE_MODULES;
+}
 
 function makeLIB (options) {
     options = options || {};
@@ -65,11 +74,7 @@ function makeAPI (options) {
                 "package.json"
             )).version,
     
-        node_modules: PATH.join(
-                BASE_PATH,
-                "dependencies/.node-" + process.version.split(".")[0],
-                "node_modules"
-            ),
+        node_modules: NODE_MODULES,
     
         get LIB () {
             delete this.LIB;
