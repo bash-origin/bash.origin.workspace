@@ -16,6 +16,6 @@
         "test": "bash.origin.test examples"
     },
     "dependencies": {
-        "bash.origin": "^0.1.88"
+        "bash.origin": "^0.1.89"
     }
 }

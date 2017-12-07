@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-        "bash.origin": "^0.1.88",
+        "bash.origin": "^0.1.89",
         "bash.origin.test": "^0.1.36",
         "bash.origin.modules": "^0.1.29",
         "bash.origin.express": "^0.1.10",
@@ -26,7 +26,7 @@
         "minimist": "^1.2.0",
         "waitfor": "^0.1.3",
         "pinf-loader-js": "^0.4.21",
-        "it.pinf.org.npmjs": "^0.1.4",
+        "it.pinf.org.npmjs": "^0.1.6",
         "jest": "^21.2.1",
         "nightwatch": "^0.9.16",
         "it.pinf.org.mozilla.web-ext": "^0.1.10",
