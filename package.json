@@ -1,6 +1,6 @@
 {
     "name": "bash.origin.workspace",
-    "version": "0.2.70",
+    "version": "0.2.71",
     "pm": {
         "publish": "npm"
     },
