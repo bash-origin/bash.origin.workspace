@@ -110,6 +110,31 @@ if [ ! -z "$BO_PLUGIN_SEARCH_DIRPATHS" ]; then
     fi
 fi
 
+# Symlink 'Unique IDs (uid)' from package descriptors to lookup dir
+BO_cecho "[bash.origin.workspace] Ensuring uid lookup symlinks:" WHITE BOLD
+BO_run_recent_node --eval '
+    const PATH = require("path");
+    const FS = require("'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules/fs-extra");
+    const TARGET_BASE_PATH = "'${COMMON_PACKAGE_ROOT}'/'${VERSIONED_DEPENDENCIES_PATH}'/node_modules";
+
+    FS.readdirSync(TARGET_BASE_PATH).forEach(function (filepath) {
+        if (FS.existsSync(PATH.join(TARGET_BASE_PATH, filepath, "package.json"))) {
+            var descriptor = JSON.parse(FS.readFileSync(PATH.join(TARGET_BASE_PATH, filepath, "package.json")));
+            if (!descriptor.uid) {
+                return;
+            }
+            var sourcePath = "../" + filepath;
+            var uid = descriptor.uid;
+            // TODO: Relocate into common helper.
+            uid = uid.replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/\//g, "~");
+            var targetPath = PATH.join(TARGET_BASE_PATH, uid);
+            if (!FS.existsSync(targetPath)) {
+                process.stderr.write("[bash.origin.workspace]   " + targetPath + " -> " + sourcePath + "\n");
+                FS.symlinkSync(sourcePath, targetPath);
+            }
+        }
+    });
+'
 
 # Sync lockfile from common location to our package so we can freeze dependencies.
 if [ "${npm_package_name}" == "bash.origin.workspace" ]; then
