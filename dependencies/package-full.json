@@ -36,6 +36,6 @@
         "it.pinf.org.mochajs": "^0.0.2",
         "jsonrep": "^0.0.10",
         "it.pinf.org.browserify": "^0.0.3",
-        "cadorn.inception": "^0.0.10"
+        "cadorn.inception": "^0.0.11"
     }
 }
