@@ -37,6 +37,6 @@
         "jsonrep": "^0.0.10",
         "it.pinf.org.browserify": "^0.0.3",
         "cadorn.inception": "^0.0.11",
-        "it.pinf.com.html5boilerplate": "^0.1.3"
+        "it.pinf.com.html5boilerplate": "^0.1.4"
     }
 }
