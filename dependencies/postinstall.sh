@@ -123,7 +123,7 @@ BO_run_recent_node --eval '
             if (!descriptor.uid) {
                 return;
             }
-            var sourcePath = "../" + filepath;
+            var sourcePath = "./" + filepath;
             var uid = descriptor.uid;
             // TODO: Relocate into common helper.
             uid = uid.replace(/^https?:\/\//, "").replace(/\/$/, "").replace(/\//g, "~");
